@@ -1,0 +1,8 @@
+[user]
+	name = Steven Landow
+	email = steven@landow.dev
+
+[alias]
+ tlog = log --graph --full-history --date-order --pretty=format:'%w(120, 0, 9)%C(yellow)%h%Cred%d%Creset %C(green)%an%Creset %C(white)%s%Creset'
+ tdlog = log --graph --full-history --date-order --pretty=format:'%w(120, 0, 9)%C(yellow)%h%Cred%d%Creset %C(magenta)(%ci)%Creset %C(green)%an%Creset %C(white)%s%Creset'
+ lg = tlog

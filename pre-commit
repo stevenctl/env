@@ -1,0 +1,31 @@
+#!/bin/sh
+
+changed() {
+  echo $(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" { print $2 }')
+}
+
+listgo() {
+  echo $(changed \
+    | grep -v vendor \
+    | grep '.go$' \
+    | grep -v '.pb.go' \
+    | grep -v '.gen.go')
+}
+
+fix_goimports() {
+  ! command -v goimports && exit 0
+  gofiles=$(listgo)
+  [ -z "$gofiles" ] && exit 0
+  goimports -w $(echo "$gofiles" | xargs)
+}
+
+fix_gofmt() {
+  ! command -v gofumpt && exit 0
+  gofiles=$(listgo)
+  [ -z "$gofiles" ] && exit 0
+  # TODO use gofumpt
+  gofmt -w $(echo "$gofiles" | xargs)
+}
+
+fix_goimports
+fix_gofmt
